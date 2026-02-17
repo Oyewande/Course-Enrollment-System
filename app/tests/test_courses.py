@@ -11,6 +11,7 @@ def test_create_course():
     data = response.json()
     assert data["title"] == "Introduction to Python"
     assert data["course_code"] == "CS101"
+    assert "id" in data
 
 
 def test_create_course_missing_title():
@@ -33,36 +34,39 @@ def test_get_courses():
 
 
 def test_get_course_by_id():
-    client.post("/courses", json=course_data)
-    response = client.get("/courses/CS101")
+    resp = client.post("/courses", json=course_data)
+    course_id = resp.json()["id"]
+    response = client.get(f"/courses/{course_id}")
     assert response.status_code == 200
-    assert response.json()["course_code"] == "CS101"
+    assert response.json()["id"] == course_id
 
 
 def test_get_course_not_found():
-    response = client.get("/courses/NONEXIST")
+    response = client.get("/courses/999")
     assert response.status_code == 404
 
 
 def test_update_course():
-    client.post("/courses", json=course_data)
-    response = client.put("/courses/CS101", json={"title": "Advanced Python", "course_code": "CS101"})
+    resp = client.post("/courses", json=course_data)
+    course_id = resp.json()["id"]
+    response = client.put(f"/courses/{course_id}", json={"title": "Advanced Python", "course_code": "CS102"})
     assert response.status_code == 200
     assert response.json()["title"] == "Advanced Python"
 
 
 def test_update_course_not_found():
-    response = client.put("/courses/NONEXIST", json={"title": "X", "course_code": "X"})
+    response = client.put("/courses/999", json={"title": "X", "course_code": "X"})
     assert response.status_code == 404
 
 
 def test_delete_course():
-    client.post("/courses", json=course_data)
-    response = client.request("DELETE", "/courses/CS101", json={"course_code": "CS101"})
+    resp = client.post("/courses", json=course_data)
+    course_id = resp.json()["id"]
+    response = client.request("DELETE", f"/courses/{course_id}", json={"id": course_id})
     assert response.status_code == 200
-    assert client.get("/courses/CS101").status_code == 404
+    assert client.get(f"/courses/{course_id}").status_code == 404
 
 
 def test_delete_course_not_found():
-    response = client.request("DELETE", "/courses/NONEXIST", json={"course_code": "NONEXIST"})
+    response = client.request("DELETE", "/courses/999", json={"id": 999})
     assert response.status_code == 404

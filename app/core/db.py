@@ -4,7 +4,8 @@ users = {
 }
 
 courses = {
-    "MTH101": {"title": "Math 101", "course_code": "MTH101"},
-    "HIS201": {"title": "History 201", "course_code": "HIS201"}
+    1: {"id": 1, "title": "Math 101", "course_code": "MTH101"},
+    2: {"id": 2, "title": "History 201", "course_code": "HIS201"}
 }
+
 enrollments = {}

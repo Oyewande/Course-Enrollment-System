@@ -13,19 +13,19 @@ def get_courses():
     return CourseService.get_courses()
 
 @course_router.get("/{course_id}")
-def get_course_by_id(course_id: str):
+def get_course_by_id(course_id: int):
     course = CourseService.get_course(course_id)
     if course:
         return course
     return {"error": "Course not found."}
 
 @course_router.put("/{course_id}")
-def update_course(course_id: str, course_data: CourseUpdate):
+def update_course(course_id: int, course_data: CourseUpdate):
     course = CourseService.update_course(course_id, course_data)
     if course:
         return course
     return {"error": "Course not found."}
 
 @course_router.delete("/{course_id}")
-def delete_course(course_id: str, course_data: CourseDelete):
+def delete_course(course_id: int, course_data: CourseDelete):
     return CourseService.delete_course(course_id, course_data)

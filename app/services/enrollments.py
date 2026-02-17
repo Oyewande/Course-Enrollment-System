@@ -5,7 +5,7 @@ from app.core.db import enrollments, courses, users
 
 class EnrollmentCreate(BaseModel):
     user_id: int 
-    course_id: str 
+    course_id: int 
 
 class EnrollmentService:
     @staticmethod
@@ -34,7 +34,7 @@ class EnrollmentService:
         return {"message": "Student successfully enrolled in the course.", "enrollment": enrollment}
 
     @staticmethod
-    def deregister_student_from_course(user_id: int, course_id: str, current_user: int):
+    def deregister_student_from_course(user_id: int, course_id: int, current_user: int):
         """
         Deregister a student from a specific course with validation.
         Only students can deregister themselves.
@@ -78,7 +78,7 @@ class EnrollmentService:
         return list(enrollments.values())
 
     @staticmethod
-    def get_enrollments_by_course(course_id: str, current_user: int):
+    def get_enrollments_by_course(course_id: int, current_user: int):
         """
         Retrieve all enrollments for a specific course with validation.
         Only admins can access this route.
@@ -95,7 +95,7 @@ class EnrollmentService:
         return course_enrollments
 
     @staticmethod
-    def force_deregister_student(user_id: int, course_id: str, current_user: int):
+    def force_deregister_student(user_id: int, course_id: int, current_user: int):
         """
         Force deregister a student from a specific course with validation.
         Only admins can perform this action.

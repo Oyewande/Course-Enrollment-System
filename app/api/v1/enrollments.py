@@ -27,7 +27,7 @@ def get_all_enrollments(current_user: dict = Depends(is_user_admin)):
 
 @enrollment_router.get("/course/{course_id}")
 def get_enrollments_by_course(
-    course_id: str, 
+    course_id: int, 
     current_user: dict = Depends(is_user_admin) 
 ):
     return EnrollmentService.get_enrollments_by_course(course_id, current_user["id"])
@@ -35,7 +35,7 @@ def get_enrollments_by_course(
 @enrollment_router.delete("/deregister/{student_id}/{course_id}")
 def deregister_student(
     student_id: int, 
-    course_id: str, 
+    course_id: int, 
     current_user: dict = Depends(is_user_student) 
 ):
     if current_user["id"] != student_id:
@@ -45,7 +45,7 @@ def deregister_student(
 @enrollment_router.delete("/force-deregister/{student_id}/{course_id}")
 def force_deregister_student(
     student_id: int, 
-    course_id: str, 
+    course_id: int, 
     current_user: dict = Depends(is_user_admin)  
 ):
     return EnrollmentService.force_deregister_student(student_id, course_id, current_user["id"])

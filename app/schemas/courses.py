@@ -9,10 +9,10 @@ class CourseCreate(CourseBase):
     pass
 
 class Course(CourseBase):
-    pass
+    id: int
     
 class CourseUpdate(CourseBase):
     pass
 
 class CourseDelete(BaseModel):
-    course_code: str
+    id: int

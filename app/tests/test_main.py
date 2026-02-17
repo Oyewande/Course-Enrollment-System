@@ -24,7 +24,7 @@ def seed_admin():
 
 
 def seed_course():
-    db.courses["MTH101"] = {"title": "Math 101", "course_code": "MTH101"}
+    db.courses[1] = {"id": 1, "title": "Math 101", "course_code": "MTH101"}
 
 
 def test_app_starts():
